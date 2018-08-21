@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = .white
         UINavigationBar.appearance().shadowImage = UIColor.rgb(red: 232, green: 232, blue: 232).as1ptImage()
         UINavigationBar.appearance().setBackgroundImage(UIColor.white.as1ptImage(), for: .default)
-
-        
+    
+        FirebaseApp.configure()
         
         return true
     }

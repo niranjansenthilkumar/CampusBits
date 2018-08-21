@@ -22,7 +22,7 @@ class BitCell: UICollectionViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Avenir-Medium", size: 14)
-        label.text = "No, Facebook isn’t selling your banking data"
+        label.text = "Bit Cell"
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
         return label

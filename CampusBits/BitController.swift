@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import Firebase
 
 class BitController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    
     let cellId = "cellId"
+    
+    var bits = [Bit(title: "Fortnite ditches Google Play Store for upcoming launch", pagesTo: [Page(number: 0, text: "My boys only like cash, that shit is golden yo! Tweeting ") ,Page(number: 1, text: "My boys only like cash, that shit is golden yo! Tweeting like its bolden yo! ferferferf fasiofefwfoa aofjwoei wefjiwoefjowe wefiwjowefwe"), Page(number: 2, text: "It looks more like a math problem than a logo for an official sport at a major multisport event recognized by the International Olympic Committee.", author: "Cornell Daily Sun", tag: "Niranjan Senthilkumar", coverImage: #imageLiteral(resourceName: "sample"))], coverImage: #imageLiteral(resourceName: "sample"), backgroundImage: #imageLiteral(resourceName: "screen"))]
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,19 +26,52 @@ class BitController: UICollectionViewController, UICollectionViewDelegateFlowLay
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image:#imageLiteral(resourceName: "infobutton").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleInfo))
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addbutton").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAdd))
+        
         collectionView?.register(BitCell.self, forCellWithReuseIdentifier: cellId)
         
+        
+        print(bits.count, "popop")
+        
+        DispatchQueue.main.async {
+            self.collectionView?.reloadSections(IndexSet(integer: 0))
+        }
+        
+        collectionView?.dataSource = self
+        collectionView?.delegate = self
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        bits.append(bitADDED)
+        self.collectionView?.reloadSections(IndexSet(integer: 0))
+    }
+
+    
+    @objc func handleAdd(){
+        let push = AddBitController()
+        
+        navigationController?.pushViewController(push, animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! BitCell
         
-        cell.articleImage.image = #imageLiteral(resourceName: "sample").withRenderingMode(.alwaysOriginal)
         
-        if indexPath.row == 2 {
-            cell.titleLabel.text = "Fortnite ditches Google Play Store for upcoming launch"
-            cell.dateLabel.text = "3d ago"
-        }
+        let titleBit = bits[indexPath.row]
+        
+        print(titleBit.title)
+            
+        cell.articleImage.image = titleBit.coverImage.withRenderingMode(.alwaysOriginal)
+
+//
+//        if indexPath.row == 2 {
+//            cell.titleLabel.text = "Fortnite ditches Google Play Store for upcoming launch"
+//            cell.dateLabel.text = "3d ago"
+//        }
+        
+        cell.titleLabel.text = titleBit.title
+        
         
         return cell
     }
@@ -51,23 +89,55 @@ class BitController: UICollectionViewController, UICollectionViewDelegateFlowLay
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        
+        print(bits.count, "omg")
+        
+        return bits.count
     }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //let selectedBit = self.bits?[indexPath.row]
+        //        print(book?.title)
+        //        return
+        
+        let selectedBit = bits[indexPath.row]
+        
+        let layout = UICollectionViewFlowLayout()
+        let bitpagerVC = BitPagerController(collectionViewLayout: layout)
+        
+        bitpagerVC.bit = selectedBit
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
+        
+        self.navigationController?.pushViewController(bitpagerVC, animated: true)
+        
+    }
+    
     
     @objc func handleInfo(){
         //let pastVC = PastFoodController(collectionViewLayout: UICollectionViewFlowLayout())
         
-        let settingsVC  = SettingsController()
+//        let settingsVC  = SettingsController()
+//
+//        let transition = CATransition()
+//        transition.duration = 0.4
+//        transition.type = kCATransitionPush
+//        transition.subtype = kCATransitionFromLeft
+//        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+//        view.window!.layer.add(transition, forKey: kCATransition)
+//
+//        settingsVC.navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "About"))
+//
+//        self.navigationController?.pushViewController(settingsVC, animated: false)
         
-        let transition = CATransition()
-        transition.duration = 0.4
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
-        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
-        view.window!.layer.add(transition, forKey: kCATransition)
-        
-        settingsVC.navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "About"))
-        
-        self.navigationController?.pushViewController(settingsVC, animated: false)
+        print(bits.count, "popop")
+        for bit in bits {
+            print(bit.title)
+        }
+
     }
 }
