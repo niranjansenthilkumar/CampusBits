@@ -118,26 +118,19 @@ class BitController: UICollectionViewController, UICollectionViewDelegateFlowLay
     }
     
     
-    @objc func handleInfo(){
-        //let pastVC = PastFoodController(collectionViewLayout: UICollectionViewFlowLayout())
-        
-//        let settingsVC  = SettingsController()
-//
-//        let transition = CATransition()
-//        transition.duration = 0.4
-//        transition.type = kCATransitionPush
-//        transition.subtype = kCATransitionFromLeft
-//        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
-//        view.window!.layer.add(transition, forKey: kCATransition)
-//
-//        settingsVC.navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "About"))
-//
-//        self.navigationController?.pushViewController(settingsVC, animated: false)
-        
-        print(bits.count, "popop")
-        for bit in bits {
-            print(bit.title)
-        }
+    @objc func handleInfo(){        
+        let settingsVC  = SettingsController()
+
+        let transition = CATransition()
+        transition.duration = 0.4
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromLeft
+        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+
+        settingsVC.navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "About"))
+
+        self.navigationController?.pushViewController(settingsVC, animated: false)
 
     }
 }
