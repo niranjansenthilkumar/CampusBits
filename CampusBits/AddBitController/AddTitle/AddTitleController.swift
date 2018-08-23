@@ -125,21 +125,21 @@ class AddTitleController: UIViewController, UIImagePickerControllerDelegate, UIN
         view.addSubview(saveButton)
         saveButton.anchor(top: titleTF.bottomAnchor, left: nil, bottom: nil, right: backgroundLabel.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 140, height: 140)
         saveButton.layer.borderWidth = 1.0
-        
-        //Looks for single or multiple taps.
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
-        
-        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
-        //tap.cancelsTouchesInView = false
-        
-        view.addGestureRecognizer(tap)
+//
+//        //Looks for single or multiple taps.
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+//
+//        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+//        //tap.cancelsTouchesInView = false
+//
+//        view.addGestureRecognizer(tap)
         
     }
-    
-    func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
-    }
+//    
+//    func dismissKeyboard() {
+//        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+//        view.endEditing(true)
+//    }
     
     @objc func handleScreenshot(){
         
